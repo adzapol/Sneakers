@@ -33,11 +33,9 @@ function Home({
           .map((obj) => (
             <Card
               key={obj.id}
-              title={obj.title}
-              price={obj.price}
-              imageUrl={obj.imageUrl}
               onClickFavorite={(sneakersObj) => onFavorite(sneakersObj)}
               onClickPlus={(sneakersObj) => onAddToCart(sneakersObj)}
+              {...obj}
             />
           ))}
       </div>

@@ -36,13 +36,20 @@ function App() {
     setCartSneakers((prev) => prev.filter((item) => item.id !== id));
   };
 
-  const onFavorite = (sneakersObj) => {
-    if (favorites.find((obj) => obj.id === sneakersObj.id)) {
-      axios.delete(`https://60df75c5abbdd9001722d3dc.mockapi.io/favorites/${sneakersObj.id}`);
-      setFavorites((prev) => prev.filter((item) => item.id !== sneakersObj.id));
-    } else {
-      axios.post('https://60df75c5abbdd9001722d3dc.mockapi.io/favorites', sneakersObj);
-      setFavorites((prev) => [...prev, sneakersObj]);
+  const onFavorite = async (sneakersObj) => {
+    try {
+      if (favorites.find((favObj) => Number(favObj.id) === Number(sneakersObj.id))) {
+        axios.delete(`https://60df75c5abbdd9001722d3dc.mockapi.io/favorites/${sneakersObj.id}`);
+        setFavorites((prev) => prev.filter((item) => Number(item.id) !== Number(sneakersObj.id)));
+      } else {
+        const { data } = await axios.post(
+          'https://60df75c5abbdd9001722d3dc.mockapi.io/favorites',
+          sneakersObj,
+        );
+        setFavorites((prev) => [...prev, data]);
+      }
+    } catch (error) {
+      alert('Не удалось добавить в закладки');
     }
   };
 
@@ -85,11 +92,3 @@ function App() {
 }
 
 export default App;
-
-// React.useEffect(() => {
-//   fetch('https://60df75c5abbdd9001722d3dc.mockapi.io/sneakers')
-//     .then((response) => response.json())
-//     .then((data) => {
-//       setSneakers(data);
-//     });
-// }, []);
