@@ -35,21 +35,11 @@ header {
   }
 }
 
-// .button {
-//   background: #ffffff;
-//   border: 1px solid #f2f2f2;
-//   box-sizing: border-box;
-//   border-radius: 8px;
-//   height: 32px;
-//   width: 32px;
-//   cursor: pointer;
-// }
-
 .cartEmpty {
   text-align: center;
 
   p {
-    width: 280px;
+    width: 270px; // 280px
     line-height: 24px;
   }
 
